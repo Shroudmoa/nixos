@@ -1,0 +1,136 @@
+# symlink to $E:XDG_CONFIG_HOME/config.yaml
+version: 2
+log-file: /tmp/efm.log # because efm doesn't support ~ or env vars
+log-level: 0
+root-markers:
+  - .git/
+lint-debounce: 1s
+
+tools:
+  dockerfile-hadolint: &dockerfile-hadolint
+    prefix: hadolint
+    lint-command: hadolint --no-color -
+    lint-stdin: true
+    lint-formats:
+      - '-:%l %.%# %trror: %m'
+      - '-:%l %.%# %tarning: %m'
+      - '-:%l %.%# %tnfo: %m'
+
+  lua-selene: &lua-selene
+    prefix: selene
+    lint-command: selene --config ~/.config/helix/selene/selene.toml --display-style Quiet -
+    lint-ignore-exit-code: true
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l:%c: %trror%m'
+      - '%f:%l:%c: %tarning%m'
+      - '%f:%l:%c: %tote%m'
+
+  php-phpstan: &php-phpstan
+    prefix: phpstan
+    lint-command: ./vendor/bin/phpstan analyze --no-progress --no-ansi --error-format=raw '${INPUT}'
+    lint-stdin: false
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '%.%#:%l:%m'
+
+  # php-cs-fixer: &php-cs-fixer
+  #   format-command: php-cs-fixer fix --no-ansi --using-cache=no --no-interaction --quiet '${INPUT}'
+  #   format-stdin: false
+
+  # python-mypy: &python-mypy
+  #   prefix: mypy
+  #   lint-command: dmypy run --timeout 300 -- --strict --show-column-numbers
+  #   lint-stdin: false
+  #   lint-ignore-exit-code: true
+  #   lint-formats:
+  #     - '%f:%l:%c: %trror: %m'
+  #     - '%f:%l:%c: %tarning: %m'
+  #     - '%f:%l:%c: %tote: %m'
+
+  # Use -O2 since some warnings are only effective with optimizations ON
+  c-gcc: &c-gcc
+    prefix: gcc
+    lint-command: gcc -O2 -xc -std=c2y -pedantic -pedantic-errors -D_XOPEN_SOURCE=800 -Wall -Walloc-zero -Walloca -Warray-bounds=2 -Wbad-function-cast -Wcalloc-transposed-args -Wcast-align=strict -Wcast-qual -Wconversion -Wdangling-pointer=2 -Wdate-time -Wduplicated-branches -Wduplicated-cond -Wextra -Wflex-array-member-not-at-end -Wfloat-equal -Wformat-overflow=2 -Wformat-signedness -Wformat-truncation=2 -Wformat=2 -Winit-self -Winline -Wjump-misses-init -Wlogical-op -Wmissing-format-attribute -Wmissing-noreturn -Wmissing-prototypes -Wmissing-variable-declarations -Wnested-externs -Wno-vla -Wnull-dereference -Wold-style-definition -Wpacked -Wpadded -Wredundant-decls -Wshadow=global -Wstrict-flex-arrays -Wstrict-overflow=5 -Wstrict-prototypes -Wstringop-overflow=4 -Wsuggest-attribute=cold -Wsuggest-attribute=const -Wsuggest-attribute=format -Wsuggest-attribute=malloc -Wsuggest-attribute=noreturn -Wsuggest-attribute=pure -Wsuggest-attribute=returns_nonnull -Wswitch-enum -Wtrampolines -Wtrivial-auto-var-init -Wundef -Wuninitialized -Wunsafe-loop-optimizations -Wunterminated-string-initialization -Wunused-macros -Wuse-after-free=3 -Wvector-operation-performance -Wwrite-strings -Wzero-as-null-pointer-constant -fdelete-null-pointer-checks -ftrivial-auto-var-init=pattern -fipa-pure-const -fstrict-aliasing -fstrict-flex-arrays=3 -ftree-vrp -funsafe-loop-optimizations -fdiagnostics-plain-output -fanalyzer -o /dev/null -c '${INPUT}'
+    lint-stdin: false
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '%.%#:%l:%c: %trror: %m'
+      - '%.%#:%l:%c: %tarning: %m'
+      - '%.%#:%l:%c: %tnfo: %m'
+      - '-:%l:%c: %trror: %m'
+
+  # https://clang-analyzer.llvm.org/checker_dev_manual.html
+  # clang -cc1 -help | grep "analyzer"
+  # https://github.com/clangd/clangd/issues/905 clangd doesn't show the static
+  # analyzer warnings
+  c-clang-analyzer: &c-clang-analyzer
+    prefix: clang-analyzer
+    lint-command: clang -xc -std=c2y -D_XOPEN_SOURCE=800 --analyze -Xclang -analyzer-checker=core,deadcode,nullability,optin,security,unix,valist,alpha -Xclang -analyzer-disable-checker=security.insecureAPI.DeprecatedOrUnsafeBufferHandling -o /dev/null '${INPUT}'
+    lint-stdin: false
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '%f:%l:%c: %trror: %m'
+      - '%f:%l:%c: %tarning: %m'
+      - '%f:%l:%c: %tote: %m'
+
+  c-cppcheck: &c-cppcheck
+    prefix: cppcheck
+    lint-command: cppcheck --enable=all --disable=unusedFunction --max-ctu-depth=9 --inconclusive -j 5 --language=c --library=std,posix --addon=threadsafety  --addon=findcasts --addon=misc --check-level=exhaustive --quiet --std=c23 '${INPUT}'
+    lint-stdin: false
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '%f:%l:%c: %trror: %m'
+      - '%f:%l:%c: %tarning: %m'
+      - '%f:%l:%c: %tote: %m'
+    root-markers:
+      - 'compile_flags.txt'
+      - 'compile_commands.json'
+      - 'CmakeLists.txt'
+
+  cpp-cppcheck: &cpp-cppcheck
+    prefix: cppcheck
+    lint-command: cppcheck --enable=all --disable=unusedFunction --max-ctu-depth=9 --inconclusive -j 5 --language=c++ --library=std,posix --addon=threadsafety  --addon=findcasts --addon=misc --check-level=exhaustive --quiet --std=c++26 '${INPUT}'
+    lint-stdin: false
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '%f:%l:%c: %trror: %m'
+      - '%f:%l:%c: %tarning: %m'
+      - '%f:%l:%c: %tote: %m'
+    root-markers:
+      - 'compile_flags.txt'
+      - 'compile_commands.json'
+      - 'CmakeLists.txt'
+
+  cpp-clang-analyzer: &cpp-clang-analyzer
+    prefix: clang-analyzer
+    lint-command: clang -xc++ -std=c++26 -D_XOPEN_SOURCE=800 --analyze -Xclang -analyzer-checker=core,cplusplus,deadcode,nullability,optin,security,unix,valist,alpha -Xclang -analyzer-disable-checker=security.insecureAPI.DeprecatedOrUnsafeBufferHandling -o /dev/null '${INPUT}'
+    lint-stdin: false
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '%f:%l:%c: %trror: %m'
+      - '%f:%l:%c: %tarning: %m'
+      - '%f:%l:%c: %tote: %m'
+
+languages:
+  dockerfile:
+    - <<: *dockerfile-hadolint
+
+  php:
+    - <<: *php-phpstan
+    # - <<: *php-cs-fixer
+
+  lua:
+    - <<: *lua-selene
+
+  # python:
+  #   - <<: *python-mypy
+
+  c:
+    - <<: *c-gcc
+    - <<: *c-cppcheck
+    - <<: *c-clang-analyzer
+
+  cpp:
+    - <<: *cpp-cppcheck
+    - <<: *cpp-clang-analyzer

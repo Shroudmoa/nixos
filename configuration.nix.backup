@@ -1,0 +1,113 @@
+{ config, pkgs, ... }:
+
+{
+  imports =
+    [
+      ./hardware-configuration.nix
+    ];
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  networking.hostName = "nixosbtw"; 
+  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.networkmanager.enable = true;
+  time.timeZone = "Europe/Berlin";
+
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "de_DE.UTF-8";
+    LC_IDENTIFICATION = "de_DE.UTF-8";
+    LC_MEASUREMENT = "de_DE.UTF-8";
+    LC_MONETARY = "de_DE.UTF-8";
+    LC_NAME = "de_DE.UTF-8";
+    LC_NUMERIC = "de_DE.UTF-8";
+    LC_PAPER = "de_DE.UTF-8";
+    LC_TELEPHONE = "de_DE.UTF-8";
+    LC_TIME = "de_DE.UTF-8";
+  };
+  services.xserver.enable = true;
+  services.tailscale.enable = true;
+  programs.niri.enable = true; 
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.desktopManager.xfce.enable = true;
+
+  services.xserver.xkb = {
+    layout = "de";
+    variant = "";
+  };
+
+  console.keyMap = "de";
+
+  services.printing.enable = true;
+
+  # Enable sound with pipewire.
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+
+  };
+
+ services.xserver.libinput.enable = true;
+
+  users.users.moa = {
+    isNormalUser = true;
+    description = "moa";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+    #  thunderbird
+    ];
+  };
+  programs.firefox.enable = true;
+  nixpkgs.config.allowUnfree = true;
+
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+  neovim
+  git
+  alacritty
+  helix
+  fish
+  tmux
+  fastfetch
+  btop
+  remmina
+  dms
+  fuzzel
+  strongswan
+  yazi
+  rofi
+  telegram-desktop
+  opencode
+  spotify
+  xorg.libXcursor
+
+  wget
+  ];
+
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+  services.xrdp = {
+    enable = true;
+    defaultWindowManager = "xfce4-session";
+    openFirewall = true;
+  };
+
+  services.openssh.enable = true;
+  networking.firewall.allowedTCPPorts = [ 22 3389 ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # networking.firewall.enable = false;
+
+  system.stateVersion = "25.11"; # Did you read the comment?
+
+}
