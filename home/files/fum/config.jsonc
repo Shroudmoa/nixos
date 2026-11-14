@@ -1,0 +1,109 @@
+{
+  // Players fum should look for, in priority order.
+  "players": [
+    "spotify",
+    "lollypop",
+    "org.mpris.MediaPlayer2.mpv",
+    "telegram desktop",
+    "helium",
+    // Helium is Chromium-based and publishes its MPRIS name under chromium.
+    "org.mpris.MediaPlayer2.chromium"
+  ],
+  "use_active_player": true,
+  "fps": 10,
+
+  "keybinds": {
+    "esc;q": "quit()",
+    "h": "prev()",
+    "l": "next()",
+    " ": "play_pause()",
+    "j": "backward(5000)",
+    "k": "forward(5000)",
+    "up": "volume(+5)",
+    "down": "volume(-5)",
+    "m": "volume(0)",
+    "s": "shuffle_toggle()",
+    "r": "loop_cycle()",
+    // Toggle the time display between track length and time remaining.
+    "t": "toggle($duration, $length-ext, $remaining-length-ext)"
+  },
+
+  "align": "center",
+  "direction": "vertical",
+  "width": 30,
+  "height": 18,
+  "border": true,
+  "padding": [1, 1],
+  "bg": "reset",
+  "fg": "reset",
+
+  "layout": [
+    // Cover art block, centered horizontally.
+    {
+      "type": "container",
+      "direction": "vertical",
+      "height": 8,
+      "children": [
+        {
+          "type": "container",
+          "flex": "center",
+          "children": [
+            { "type": "cover-art", "width": 16, "resize": "fit" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "container",
+      "direction": "vertical",
+      "children": [
+        { "type": "label", "text": "$title", "align": "center", "bold": true },
+        { "type": "label", "text": "$artists", "align": "center", "fg": "gray" },
+        { "type": "empty", "size": 1 },
+        {
+          "type": "container",
+          "height": 1,
+          "flex": "space-around",
+          "children": [
+            { "type": "button", "text": "󰒮", "action": "prev()" },
+            { "type": "button", "text": "$status-icon", "action": "play_pause()" },
+            { "type": "button", "text": "󰒭", "action": "next()" }
+          ]
+        },
+        {
+          "type": "progress",
+          "progress": { "char": "━", "fg": "green" },
+          "empty": { "char": "─", "fg": "darkgray" }
+        },
+        {
+          "type": "container",
+          "height": 1,
+          "flex": "space-between",
+          "children": [
+            { "type": "label", "text": "$position-ext", "align": "left", "fg": "gray" },
+            {
+              "type": "button",
+              "text": "var($duration, $length-ext)",
+              "action": "toggle($duration, $length-ext, $remaining-length-ext)",
+              "fg": "gray"
+            }
+          ]
+        },
+        {
+          "type": "container",
+          "height": 1,
+          "children": [
+            { "type": "label", "text": "vol", "fg": "gray" },
+            {
+              "type": "volume",
+              "size": 14,
+              "volume": { "char": "━", "fg": "cyan" },
+              "empty": { "char": "─", "fg": "darkgray" }
+            },
+            { "type": "label", "text": "$volume%", "align": "right", "fg": "gray" }
+          ]
+        }
+      ]
+    }
+  ]
+}

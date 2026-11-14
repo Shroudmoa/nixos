@@ -1,0 +1,16 @@
+{
+  "current_theme": "a3chron/ctp-blue@1.1",
+  "current_path": "/home/moa/.config/stellar/a3chron/ctp-blue/1.1.toml",
+  "previous_theme": "presets/rose-pine@1.0",
+  "previous_path": "/home/moa/.config/stellar/presets/rose-pine/1.0.toml",
+  "downloaded_themes": [
+    "presets/axenide",
+    "presets/rose-pine",
+    "a3chron/ctp-blue"
+  ],
+  "applied_hash": "d29f8c39b8a2d0cb1ac03cfa9d3804454a2063ebb2baaad4109ab193d25c1812",
+  "install_id": "8e1ae329-5db2-43a8-8bbd-7337eae028c3",
+  "install_kind": "install",
+  "reported_version": "1.8.0",
+  "reported_at": "2026-10-18T20:20:15Z"
+}

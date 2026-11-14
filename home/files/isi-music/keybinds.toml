@@ -1,0 +1,67 @@
+[playback]
+cycle_repeat = "r"
+like_track = "l"
+next_track = "n"
+play_pause = "space"
+prev_track = [
+    "p",
+    "P",
+]
+recommendations = "alt+r"
+seek_backward = "left"
+seek_forward = "right"
+seek_middle = "5"
+toggle_radio = "´"
+toggle_shuffle = "s"
+volume_down = "-"
+volume_up = "="
+
+[navigation]
+back = "esc"
+enter = "enter"
+focus_library = "1"
+focus_playlists = "2"
+focus_queue = "4"
+focus_tracks = "3"
+jump_to_playing = "c"
+nav_down = [
+    "down",
+    "j",
+]
+nav_first = "ctrl+up"
+nav_last = "ctrl+down"
+nav_middle = "M"
+nav_up = [
+    "up",
+    "k",
+]
+tab_next = "tab"
+tab_prev = "backtab"
+
+[modes]
+help = "?"
+options_panel = "t"
+quick_search = "ctrl+f"
+scroll_down = "pagedown"
+scroll_up = "pageup"
+search = "/"
+toggle_breadcrumb = "shift+b"
+toggle_compact = "m"
+toggle_debug = "d"
+toggle_fullscreen = "z"
+toggle_lyrics = "y"
+toggle_visualizer = "v"
+
+[actions]
+add_to_playlist = "A"
+add_to_queue = "a"
+command_prompt = ":"
+copy_track_link = "ctrl+y"
+delete_playlist = "alt+d"
+quit = [
+    "q",
+    "ctrl+c",
+]
+remove_from_playlist = "D"
+remove_from_queue = "delete"
+sort_tracks = "o"

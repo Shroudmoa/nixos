@@ -5,6 +5,7 @@
     [ # Include the results of the hardware scan.
       self.nixosModules.myMachineHardware
       self.nixosModules.niri
+      inputs.home-manager.nixosModules.home-manager
     ];
 
   # Bootloader.
@@ -40,8 +41,8 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -87,6 +88,17 @@
   # Install firefox.
   programs.firefox.enable = true;
 
+  # Use fish as an available login shell.
+  programs.fish.enable = true;
+
+  # Home-manager manages all of moa's ~/.config dotfiles (migrated from Fedora).
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "hm-backup";
+    users.moa = self.homeModules.moa;
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -101,7 +113,6 @@ lazygit
 helix
 fish
 kitty
-noctalia
 telegram-desktop
 fuzzel
 btop

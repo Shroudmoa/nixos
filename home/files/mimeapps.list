@@ -1,0 +1,13 @@
+
+[Default Applications]
+text/html=helium.desktop
+x-scheme-handler/http=helium.desktop
+x-scheme-handler/https=helium.desktop
+x-scheme-handler/about=helium.desktop
+x-scheme-handler/unknown=helium.desktop
+inode/directory=thunar.desktop
+application/x-wayland-gnome-saved-search=thunar.desktop
+x-scheme-handler/mailto=net.thunderbird.Thunderbird.desktop
+
+[Added Associations]
+x-scheme-handler/mailto=net.thunderbird.Thunderbird.desktop;

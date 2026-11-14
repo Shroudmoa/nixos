@@ -1,19 +1,13 @@
-
-{ self, inputs, ... }: {
+# Niri is configured through home-manager (see ../../home/files/niri/config.kdl
+# and the `niri-dms` seed in ../../home/moa.nix), so we only need the compositor
+# and its session here. This keeps the live config at ~/.config/niri/config.kdl
+# where DMS can regenerate its `dms/*.kdl` includes at runtime.
+{ self, inputs, ... }:
+{
   flake.nixosModules.niri = { pkgs, lib, ... }: {
     programs.niri = {
       enable = true;
-      package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
-    };
-  };
-
-  perSystem = { pkgs, lib, self', ... }: {
-    packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
-      config = {
-        inherit pkgs;
-        "config.kdl".path = ./config.kdl;
-      };
+      package = pkgs.niri;
     };
   };
 }
-

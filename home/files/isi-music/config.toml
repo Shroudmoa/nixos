@@ -1,0 +1,38 @@
+[spotify]
+enabled = true
+
+[lastfm]
+
+[discord]
+enabled = true
+
+[local]
+music_dir = "/run/media/moa/Storage"
+
+[musixmatch]
+
+[options]
+
+[ui]
+
+[cache]
+
+[audio]
+gapless = false
+bitrate = 0
+mono = false
+eq_gains = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+]
+
+[session]
+focus = "tracks"
+active_content = "local_files"
+compact_mode = false
+library_selected = 5
+volume = 100

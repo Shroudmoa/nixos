@@ -1,0 +1,36 @@
+font-family = "CaskaydiaCove Nerd Font"
+font-style = Retina
+font-size = 15
+font-thicken = true
+font-feature = calt
+font-feature = liga
+
+theme = light:Solarized Light Remastered,dark:Rose Pine Remastered
+minimum-contrast = 3.0
+
+background-opacity = 0.88
+background-blur = 24
+
+window-padding-x = 12
+window-padding-y = 10
+window-padding-color = extend
+macos-titlebar-style = native
+
+cursor-style = block
+cursor-style-blink = true
+cursor-opacity = 0.85
+
+unfocused-split-opacity = 1
+resize-overlay = after-first
+resize-overlay-position = bottom-right
+
+command = /usr/bin/fish
+copy-on-select = true
+confirm-close-surface = false
+
+keybind = ctrl+shift+o=new_split:right
+keybind = ctrl+shift+h=close_surface
+keybind = ctrl+shift+l=new_split:down
+keybind = shift+enter=text:\x1b\r
+
+config-file = local

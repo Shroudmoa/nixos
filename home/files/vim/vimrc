@@ -1,0 +1,9 @@
+let g:vim_config_dir = expand('<sfile>:p:h')
+
+execute 'source ' . fnameescape(g:vim_config_dir . '/options.vim')
+execute 'source ' . fnameescape(g:vim_config_dir . '/keybinds.vim')
+execute 'source ' . fnameescape(g:vim_config_dir . '/plugins.vim')
+execute 'source ' . fnameescape(g:vim_config_dir . '/colors.vim')
+execute 'source ' . fnameescape(g:vim_config_dir . '/fzf.vim')
+execute 'source ' . fnameescape(g:vim_config_dir . '/lightline.vim')
+execute 'source ' . fnameescape(g:vim_config_dir . '/lsp.vim')

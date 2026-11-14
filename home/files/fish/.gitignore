@@ -1,0 +1,6 @@
+# fish universal variables — machine-specific
+fish_variables
+
+# editor / OS noise
+*.swp
+.DS_Store

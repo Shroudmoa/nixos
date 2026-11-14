@@ -1,0 +1,10 @@
+[flavor]
+use = "rose-pine"
+# use = "vscode-dark-modern"
+#
+
+[icon]
+prepend_rules = [{ name = "*.md", text = "", fg = "#61afef" }]
+
+[indicator]
+padding = { open = "", close = "" }
