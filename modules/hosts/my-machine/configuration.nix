@@ -138,7 +138,19 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.tailscale.enable = true;
+  # services.tailscale.enable = true;
+  services.tailscale = {
+  enable = true;
+  extraSetFlags = [ "--accept-dns=false" ];
+  };
+
+  networking.nameservers = [
+    "8.8.8.8"
+    "192.168.0.254"
+    "192.168.1.10"
+    "192.168.1.11"
+
+  ];
 
 
   # Open ports in the firewall.

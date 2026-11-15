@@ -168,6 +168,8 @@ in
     spicetify-cli
      spotify
      freerdp
+     gh 
+
     #
   ];
 
