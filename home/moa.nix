@@ -148,6 +148,22 @@ in
     xdg-desktop-portal-gtk
     xdg-desktop-portal-gnome
     xdg-desktop-portal-wlr
+    # arcade
+    rustup
+    tdf
+    remmina
+    sshm
+    tailscale
+    openvpn
+    librewolf
+    age
+    goose-cli
+     cline
+     pi-coding-agent
+    codex
+    spicetify-cli
+     spotify
+    #
   ];
 
   programs.home-manager.enable = true;
