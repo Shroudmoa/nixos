@@ -69,6 +69,10 @@ in
     enable = true;
     systemd.enable = true;
   };
+  programs.zoxide = {
+  enable = true;
+  enableFishIntegration = true;
+  };
 
   home.packages = with pkgs; [
     # shell & terminal
@@ -163,6 +167,7 @@ in
     codex
     spicetify-cli
      spotify
+     freerdp
     #
   ];
 

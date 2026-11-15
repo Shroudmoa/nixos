@@ -7,6 +7,10 @@
       self.nixosModules.niri
       inputs.home-manager.nixosModules.home-manager
     ];
+  nix.settings.experimental-features = [
+  "nix-command"
+  "flakes"
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -14,6 +18,9 @@
 
   networking.hostName = "nixosbtw"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.plugins = with pkgs; [
+  networkmanager-openvpn
+  ];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -108,15 +115,15 @@
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
-curl
-lazygit
-helix
-fish
-kitty
-telegram-desktop
-fuzzel
-btop
-alacritty
+    curl
+    lazygit
+    helix
+    fish
+    kitty
+    telegram-desktop
+    fuzzel
+    btop
+    alacritty
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
