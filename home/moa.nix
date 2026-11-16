@@ -169,8 +169,11 @@ in
      spotify
      freerdp
      gh 
-
-    #
+     gcc
+     gnumake
+     dotnet-sdk
+     dotnet-sdk_10
+     #
   ];
 
   programs.home-manager.enable = true;
