@@ -171,8 +171,10 @@ in
      gh 
      gcc
      gnumake
-     dotnet-sdk
+     # dotnet-sdk
      dotnet-sdk_10
+     termshark
+     glow
      #
   ];
 
