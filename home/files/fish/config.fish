@@ -1,5 +1,9 @@
 set fish_greeting
 
+# Niri is Wayland-only; X11 apps (OnlyOffice, Wireshark, ...) use the
+# xwayland-satellite display on :99 (see home/moa.nix).
+set -gx DISPLAY :99
+
 # pokemon-colorscripts --no-title -s -r | fastfetch \
 #     -c $HOME/.config/fastfetch/config-pokemon.jsonc \
 #     --logo-type file-raw \

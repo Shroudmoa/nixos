@@ -33,10 +33,15 @@ in
 
   xdg.enable = true;
 
-  # Niri is Wayland-only, so X11 apps (TeamViewer, Wireshark, ...) need the
-  # separate Xwayland instance provided by xwayland-satellite. Keep a fixed
-  # display number so DISPLAY can be exported before satellite starts.
+  # Niri is Wayland-only, so X11 apps (TeamViewer, OnlyOffice, Wireshark, ...)
+  # need the separate Xwayland instance provided by xwayland-satellite. Keep a
+  # fixed display number for it.
+  #
+  # home.sessionVariables only writes a shell profile (which nothing sources
+  # here), so also expose DISPLAY to the graphical session via environment.d.
+  # Fish gets it directly from home/files/fish/config.fish.
   home.sessionVariables.DISPLAY = ":99";
+  systemd.user.sessionVariables.DISPLAY = ":99";
 
   systemd.user.services.xwayland-satellite = {
     Unit = {
@@ -56,7 +61,11 @@ in
   };
 
   # Link the migrated ~/.config tree.
-  xdg.configFile = lib.mapAttrs (_: source: { inherit source; }) (collectFiles ./files);
+  # `programs.onlyoffice` generates this file from `settings` below, so skip
+  # the copied one to avoid a conflicting definition.
+  xdg.configFile = lib.mapAttrs (_: source: { inherit source; }) (
+    lib.filterAttrs (name: _: name != "onlyoffice/DesktopEditors.conf") (collectFiles ./files)
+  );
 
   # DMS generates ~/.config/niri/dms/*.kdl and rewrites ~/.config/dms/*.json at
   # runtime, so we must not symlink them from the store (that would be
@@ -94,6 +103,22 @@ in
   programs.zoxide = {
   enable = true;
   enableFishIntegration = true;
+  };
+  programs.onlyoffice = {
+    enable = true;
+    # Keep the migrated config values in the HM module so the generated file
+    # remains the single source of truth. `lib.generators.toKeyValue` emits
+    # Qt-style values verbatim.
+    settings = {
+      UITheme = "theme-contrast-dark";
+      appdata = "@ByteArray(eyJ1c2VybmFtZSI6Im1vYSIsImxhbmdpZCI6ImVuLVVTIiwidWl0aGVtZSI6InRoZW1lLWNvbnRyYXN0LWRhcmsiLCJlZGl0b3JXaW5kb3dNb2RlIjpmYWxzZSwic3BlbGxjaGVja2RldGVjdCI6ImF1dG8iLCJ1c2VncHUiOnRydWUsInVzZWFpIjp0cnVlLCJyZXN0YXJ0Ijp0cnVlLCJjb3VudHJ5IjoiZW4iLCJ1c2NhbGluZyI6IjAifQ==)";
+      editorWindowMode = false;
+      forcedRtl = false;
+      maximized = true;
+      position = "@Rect(0 0 1912 1030)";
+      savePath = "/home/moa/Desktop/project/main";
+      titlebar = "custom";
+    };
   };
 
   home.packages = with pkgs; [
@@ -200,6 +225,7 @@ in
      openssl
      teamviewer
      xwayland-satellite
+     onlyoffice-desktopeditors
      #
   ];
 
