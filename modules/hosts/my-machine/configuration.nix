@@ -125,6 +125,16 @@
           "DISPLAY"
           ":99"
         ];
+        # TeamViewer's embedded QtWebEngine (used for the company SSO window)
+        # dlopens the hard-coded name "libudev.so.0". Modern systemd only ships
+        # libudev.so.1, so that dlopen fails and Chromium's udev loader triggers
+        # an IMMEDIATE_CRASH() (SIGTRAP) as soon as the embedded browser starts.
+        # RTlib is already in libQt5WebEngineCore.so.5's RUNPATH, so a compat
+        # symlink there is found by dlopen without changing LD_LIBRARY_PATH.
+        postFixup = (old.postFixup or "") + ''
+          ln -sf ${final.systemd}/lib/libudev.so.1 \
+            "$out/share/teamviewer/tv_bin/RTlib/libudev.so.0"
+        '';
       });
     })
   ];
@@ -165,8 +175,8 @@
   };
 
   networking.nameservers = [
-    "8.8.8.8"
-    "192.168.0.254"
+    "9.9.9.9"
+    "192.168.0.1"
     "192.168.1.10"
     "192.168.1.11"
 
