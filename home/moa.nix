@@ -33,6 +33,28 @@ in
 
   xdg.enable = true;
 
+  # Niri is Wayland-only, so X11 apps (TeamViewer, Wireshark, ...) need the
+  # separate Xwayland instance provided by xwayland-satellite. Keep a fixed
+  # display number so DISPLAY can be exported before satellite starts.
+  home.sessionVariables.DISPLAY = ":99";
+
+  systemd.user.services.xwayland-satellite = {
+    Unit = {
+      Description = "Xwayland outside your Wayland compositor";
+      Documentation = [ "man:xwayland-satellite(1)" ];
+      BindsTo = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+      Requisite = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "notify";
+      ExecStart = "${pkgs.xwayland-satellite}/bin/xwayland-satellite :99";
+      Restart = "on-failure";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
   # Link the migrated ~/.config tree.
   xdg.configFile = lib.mapAttrs (_: source: { inherit source; }) (collectFiles ./files);
 
@@ -177,6 +199,7 @@ in
      glow
      openssl
      teamviewer
+     xwayland-satellite
      #
   ];
 

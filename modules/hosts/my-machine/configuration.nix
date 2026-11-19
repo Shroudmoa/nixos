@@ -46,6 +46,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.teamviewer.enable = true;
 
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
@@ -108,6 +109,25 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Work around patchelf 0.19.2 producing overlapping LOAD segments in
+  # autoPatchelf'd non-PIE binaries, which makes teamviewerd crash in ld.so
+  # before it even starts (NixOS/nixpkgs#576412). A 2 MiB page keeps .dynamic
+  # in its own writable segment. Remove once patchelf >= 0.19.3 lands.
+  nixpkgs.overlays = [
+    (final: prev: {
+      teamviewer = prev.teamviewer.overrideAttrs (old: {
+        patchelfFlags = (old.patchelfFlags or [ ]) ++ [ "--page-size" "2097152" ];
+        # The GUI is X11-only; fall back to the xwayland-satellite display
+        # (see home/moa.nix) when launched from a shell without DISPLAY set.
+        makeWrapperArgs = (old.makeWrapperArgs or [ ]) ++ [
+          "--set-default"
+          "DISPLAY"
+          ":99"
+        ];
+      });
+    })
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
