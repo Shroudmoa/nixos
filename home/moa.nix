@@ -175,6 +175,8 @@ in
      dotnet-sdk_10
      termshark
      glow
+     openssl
+     teamviewer
      #
   ];
 
