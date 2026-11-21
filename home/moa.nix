@@ -226,6 +226,9 @@ in
      teamviewer
      xwayland-satellite
      onlyoffice-desktopeditors
+     python314
+     nmap
+     brave
      #
   ];
 
