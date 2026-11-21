@@ -37,6 +37,7 @@ alias yy='z'
 alias x='zi'
 alias g='glow'
 alias wire='sudo env DISPLAY=$DISPLAY QT_QPA_PLATFORM=xcb QT_QPA_PLATFORMTHEME=qt6ct QT_STYLE_OVERRIDE=kvantum wireshark'
+alias h='cd ~/shroud'
 
 alias ni='sudo nixos-rebuild switch --flake ~/myNixOS#myMachine'
 
