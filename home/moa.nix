@@ -229,6 +229,10 @@ in
      python314
      nmap
      brave
+     teams-for-linux
+     yt-dlp
+     ente-auth
+     bitwarden-desktop
      #
   ];
 

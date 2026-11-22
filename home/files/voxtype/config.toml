@@ -1,0 +1,57 @@
+# Location: ~/.config/voxtype/config.toml
+
+state_file = "auto"
+
+[hotkey]
+# SCROLLLOCK is a safe key that rarely conflicts with anything else.
+key = "SCROLLLOCK"
+mode = "toggle" 
+enabled = false # Important: Disable built-in detection so niri handles the keybind
+
+[audio]
+device = "default"
+sample_rate = 16000
+max_duration_secs = 60
+# Cool feature: Pause Spotify/YouTube while you dictate
+pause_media = true 
+
+[whisper]
+# Multilingual support: German first, English second
+# Auto-detect will try to figure out which one you are speaking
+language = "de" 
+
+# "small" is the best balance for German accuracy and speed
+model = "small" 
+
+# Use GPU if you have one (NVIDIA/AMD). If you have issues, set to false.
+# flash_attention = true
+
+[output]
+# CLIPBOARD ONLY: Voxtype copies to clipboard, you paste manually with Strg+V
+mode = "clipboard" 
+fallback_to_clipboard = true
+
+# Cool feature: Press Enter automatically after dictating? 
+# Set to true if you want it to auto-submit (e.g., in a chat)
+auto_submit = false 
+
+[text]
+# Enable spoken punctuation (say "Komma" or "Punkt" to get , and .)
+spoken_punctuation = true 
+
+# Smart auto-submit: Say "submit" at the end to press Enter
+smart_auto_submit = true 
+
+# Remove filler words like "äh" and "ähm"
+filter_filler_words = false
+
+# Custom replacements (fix common Whisper mistakes)
+replacements = { "vox type" = "Voxtype", "nix os" = "NixOS", "git hub" = "GitHub" }
+
+[osd]
+# Show a little on-screen display when recording
+frontend = "gtk4" 
+layout = "compact"
+
+[output.notification]
+on_transcription = true # Shows a notification with the transcribed text

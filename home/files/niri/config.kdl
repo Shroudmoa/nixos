@@ -467,6 +467,7 @@ binds {
     Mod+S { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
+    Alt+V hotkey-overlay-title="Voxtype: toggle voice-to-text" { spawn "voxtype" "record" "toggle"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
