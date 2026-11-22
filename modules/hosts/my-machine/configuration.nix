@@ -154,6 +154,11 @@
     fuzzel
     btop
     alacritty
+    (appimage-run.override {
+      extraPkgs = pkgs: [ 
+        pkgs.libgpg-error 
+      ];
+    })
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
