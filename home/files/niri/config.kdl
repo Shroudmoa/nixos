@@ -225,6 +225,18 @@ binds {
     Mod+Shift+O { spawn-sh "niri msg action set-column-width 1800 && niri msg action set-window-height 800 && niri msg action center-window"; }
     Mod+Shift+I { spawn-sh "niri msg action set-column-width 400 && niri msg action set-window-height 400"; }
 
+    // Edge/corner presets float the focused window first, then place it exactly.
+    // W/A/S/D = up/left/down/right halves; Q/T/Z/C = corners.
+    Mod+Shift+W hotkey-overlay-title="Size: top half" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 1920 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 0 -y 0"; }
+    Mod+Shift+A hotkey-overlay-title="Size: left half" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 1080 && niri msg action move-floating-window -x 0 -y 0"; }
+    Mod+Shift+S hotkey-overlay-title="Size: bottom half" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 1920 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 0 -y 540"; }
+    Mod+Shift+D hotkey-overlay-title="Size: right half" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 1080 && niri msg action move-floating-window -x 960 -y 0"; }
+    Mod+Shift+Q hotkey-overlay-title="Size: top-left quarter" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 0 -y 0"; }
+    Mod+Shift+T hotkey-overlay-title="Size: top-right quarter" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 960 -y 0"; }
+    Mod+Shift+Z hotkey-overlay-title="Size: bottom-left quarter" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 0 -y 540"; }
+    Mod+Shift+C hotkey-overlay-title="Size: bottom-right quarter" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 960 -y 540"; }
+
+
 
 
 

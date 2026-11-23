@@ -234,6 +234,12 @@ in
      ente-auth
      bitwarden-desktop
      #
+     cliamp
+     postgresql
+    sqlite
+    dbeaver-bin
+     redis
+     lazysql
   ];
 
   programs.home-manager.enable = true;
