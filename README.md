@@ -20,8 +20,14 @@ modules/                      # everything here is auto-imported by import-tree
       default.nix             # nixosConfigurations.myMachine
       configuration.nix       # system config + wires home-manager.users.moa
       hardware.nix            # generated hardware config
+    server/
+      default.nix             # nixosConfigurations.server (headless)
+      configuration.nix       # SSH + 3 users, GUI config kept commented out
+      hardware.nix            # copied from my-machine; regenerate for real hardware
+  features/
+    server-home.nix           # exposes homeModules.server{Common,Admin,Vm,Moa}
 home/                         # NOT auto-imported (kept outside modules/)
-  moa.nix                     # the home-manager module (links ./files via xdg.configFile)
+  moa.nix                     # the desktop home-manager module (links all of ./files)
   files/                      # migrated ~/.config tree (mirrors the real paths)
     niri/config.kdl
     wezterm/wezterm.lua
@@ -29,6 +35,9 @@ home/                         # NOT auto-imported (kept outside modules/)
     ... (everything under ~/.config that is real config)
   niri-dms/                   # seed for ~/.config/niri/dms/*.kdl (DMS rewrites these)
   dms-seed/                   # seed for ~/.config/dms/* (DMS rewrites these at runtime)
+  server-common.nix           # shared headless home module (reuses TUI parts of ./files)
+  server-{admin,vm,moa}.nix   # per-user extras on the server
+  server-files/fish/config.fish # server-safe fish config (no DISPLAY/GUI aliases)
 ```
 
 ### How the configs are wired
@@ -70,6 +79,28 @@ does not spawn it.
 ```sh
 sudo nixos-rebuild switch --flake ~/.config/nixos#myMachine
 ```
+
+### NixOS (the headless `server` host)
+
+```sh
+sudo nixos-rebuild switch --flake ~/.config/nixos#server
+```
+
+Three users are created: `admin` (wheel/sudo), `vm`, and `moa`. All get fish,
+tmux, starship, fzf/zoxide, nvim/helix, yazi and the other TUI dotfiles from
+`home/files`. No X11, no compositor, no GNOME, no pipewire, no GUI apps —
+Telegram, Firefox, TeamViewer, OnlyOffice etc. only exist on `myMachine`. The
+desktop-related NixOS options are still present as comments in
+`modules/hosts/server/configuration.nix`.
+
+> **Before first boot:** replace the three placeholder SSH public keys at the
+> top of `modules/hosts/server/configuration.nix`. Password auth and root login
+> are disabled, so with the placeholders nobody can log in via SSH. Once logged
+> in as `admin`, run `passwd admin` to set a password for `sudo`.
+
+Hardware is copied from `my-machine`; run
+`nixos-generate-config --show-hardware-config` on the target and replace
+`modules/hosts/server/hardware.nix` if it is different hardware.
 
 ### Fedora (standalone home-manager)
 
