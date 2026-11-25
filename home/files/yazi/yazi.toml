@@ -58,7 +58,9 @@ image_bound = [65535, 65535]
 
 
 [opener]
-pdf = [{ run = 'xreader "$@"', desc = "Open PDF with Xreader", detach = true }]
+# pdf = [{ run = 'xreader "$@"', desc = "Open PDF with Xreader", detach = true }]
+pdf = [{ run = 'tdf "$@"', desc = "Open PDF with Xreader", detach = false }]
+
 img = [
     { run = 'xviewer "$@"', desc = "Open Image with Xviewer", detach = true },
 ]

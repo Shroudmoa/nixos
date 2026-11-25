@@ -1,0 +1,41 @@
+[metadata]
+name = "Daylight Porcelain"
+author = "NEXUS v2"
+# description: Clean light surface with cobalt and amber accents
+
+[colors]
+background = "#F4F6FB"
+foreground = "#1C2536"
+
+cursor_bg = "#2F5BEA"
+cursor_fg = "#FFFFFF"
+cursor_border = "#2F5BEA"
+
+selection_bg = "#D9E4FF"
+selection_fg = "#12203A"
+
+scrollbar_thumb = "#BCC8DE"
+split = "#CFD8E8"
+compose_cursor = "#B4740B"
+visual_bell = "#D9E4FF"
+
+ansi = [
+  "#F4F6FB",
+  "#D1495B",
+  "#1E8F6B",
+  "#B4740B",
+  "#2F5BEA",
+  "#8B4CC4",
+  "#0E8DA6",
+  "#1C2536",
+]
+brights = [
+  "#D8DEEA",
+  "#E86070",
+  "#2AA37C",
+  "#C98A1A",
+  "#4C77F5",
+  "#A165D8",
+  "#1AA0BB",
+  "#0B1220",
+]

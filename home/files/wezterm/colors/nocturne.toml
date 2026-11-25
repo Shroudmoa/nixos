@@ -1,0 +1,41 @@
+[metadata]
+name = "Nocturne Void"
+author = "NEXUS v2"
+# description: High-contrast near-black with electric lime and magenta
+
+[colors]
+background = "#05070A"
+foreground = "#E8F0E4"
+
+cursor_bg = "#B8F34A"
+cursor_fg = "#05070A"
+cursor_border = "#B8F34A"
+
+selection_bg = "#243226"
+selection_fg = "#F2F7EF"
+
+scrollbar_thumb = "#2E3F31"
+split = "#1E2A20"
+compose_cursor = "#F15BB5"
+visual_bell = "#243226"
+
+ansi = [
+  "#05070A",
+  "#FF4D6D",
+  "#B8F34A",
+  "#FFD166",
+  "#4CC9F0",
+  "#F15BB5",
+  "#2DE2C5",
+  "#F2F7EF",
+]
+brights = [
+  "#2E3F31",
+  "#FF8FA3",
+  "#D4FF7A",
+  "#FFE2A1",
+  "#8ADDF8",
+  "#FF9AD7",
+  "#8CF5E4",
+  "#FFFFFF",
+]

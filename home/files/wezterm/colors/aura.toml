@@ -1,0 +1,41 @@
+[metadata]
+name = "Aura Glass"
+author = "NEXUS v2"
+# description: Polar-night navy with cyan and lilac highlights
+
+[colors]
+background = "#0B1020"
+foreground = "#D8E2F2"
+
+cursor_bg = "#67E8F9"
+cursor_fg = "#071018"
+cursor_border = "#67E8F9"
+
+selection_bg = "#1D3550"
+selection_fg = "#EAF6FF"
+
+scrollbar_thumb = "#33456B"
+split = "#22304D"
+compose_cursor = "#C9A7FF"
+visual_bell = "#1D3550"
+
+ansi = [
+  "#0B1020",
+  "#FF7A93",
+  "#7DE2B8",
+  "#F5CE7A",
+  "#7FB6FF",
+  "#C9A7FF",
+  "#67E8F9",
+  "#E6EEFF",
+]
+brights = [
+  "#2A3550",
+  "#FF9DB0",
+  "#A6F0CD",
+  "#FFE1A3",
+  "#A9CDFF",
+  "#DFC7FF",
+  "#A5F3FC",
+  "#FFFFFF",
+]

@@ -240,6 +240,7 @@ in
     dbeaver-bin
      redis
      lazysql
+     proton-cli
   ];
 
   programs.home-manager.enable = true;
