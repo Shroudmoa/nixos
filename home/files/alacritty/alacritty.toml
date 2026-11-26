@@ -1,69 +1,167 @@
-[window]
-opacity = 0.85
-decorations = "Full"
-decorations_theme_variant = "Dark"
+# ╭──────────────────────────────────────────────────────────────╮
+# │  ALACRITTY // NEXUS GLASS                                    │
+# │  one file, no imports — live reload, OSC 52, hints, vi mode   │
+# ╰──────────────────────────────────────────────────────────────╯
 
-[window.padding]
-x = 12
-y = 12
-
-[font]
-size = 14.0
-
-[font.normal]
-family = "JetBrainsMono Nerd Font"
-
-[font.bold]
-family = "JetBrainsMono Nerd Font"
-
-[font.italic]
-family = "JetBrainsMono Nerd Font"
-
-[font.bold_italic]
-family = "JetBrainsMono Nerd Font"
-
-[colors.primary]
-background = "#000000"
-foreground = "#cdd6f4"
-
-[colors.cursor]
-text = "#000000"
-cursor = "#ffffff"
-
-[colors.selection]
-text = "CellForeground"
-background = "#44475a"
-
-[colors.normal]
-black   = "#1e1e2e"
-red     = "#f38ba8"
-green   = "#a6e3a1"
-yellow  = "#f9e2af"
-blue    = "#89b4fa"
-magenta = "#f5c2e7"
-cyan    = "#94e2d5"
-white   = "#bac2de"
-
-[colors.bright]
-black   = "#45475a"
-red     = "#f38ba8"
-green   = "#a6e3a1"
-yellow  = "#f9e2af"
-blue    = "#89b4fa"
-magenta = "#f5c2e7"
-cyan    = "#94e2d5"
-white   = "#cdd6f4"
-
-[scrolling]
-history = 10000
-multiplier = 3
-
-[keyboard]
-bindings = [
-  { key = "V", mods = "Control|Shift", action = "Paste" },
-  { key = "C", mods = "Control|Shift", action = "Copy" },
-  { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" }
-]
+[general]
+live_config_reload = true
+ipc_socket = true
 
 [env]
 TERM = "xterm-256color"
+COLORTERM = "truecolor"
+
+# ── glass shell ────────────────────────────────────────────────
+[window]
+opacity = 0.88
+blur = true
+decorations = "Full"
+decorations_theme_variant = "Dark"
+dynamic_padding = true
+padding = { x = 10, y = 10 }
+title = "NEXUS"
+
+[scrolling]
+history = 20000
+multiplier = 4
+
+# ── type ───────────────────────────────────────────────────────
+[font]
+size = 13.0
+offset = { x = 0, y = 1 }
+builtin_box_drawing = true
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+style = "Bold"
+
+[font.italic]
+style = "Italic"
+
+[font.bold_italic]
+style = "Bold Italic"
+
+# ── cursor / selection ─────────────────────────────────────────
+[cursor]
+style = { shape = "Beam", blinking = "On" }
+vi_mode_style = { shape = "Block", blinking = "Off" }
+blink_interval = 800
+blink_timeout = 5
+unfocused_hollow = true
+thickness = 0.15
+
+[selection]
+save_to_clipboard = true
+
+[mouse]
+hide_when_typing = true
+
+# ── protocols ──────────────────────────────────────────────────
+[terminal]
+osc52 = "OnlyCopy" # yank from SSH straight into the local clipboard
+
+# ── keys ───────────────────────────────────────────────────────
+[keyboard]
+bindings = [
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+  { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" },
+  { key = "Return", mods = "Control|Shift", action = "CreateNewWindow" },
+  { key = "F", mods = "Control|Shift", action = "ToggleFullscreen" },
+  { key = "L", mods = "Control|Shift", action = "ClearHistory" },
+  { key = "=", mods = "Control|Shift", action = "IncreaseFontSize" },
+  { key = "-", mods = "Control|Shift", action = "DecreaseFontSize" },
+  { key = "0", mods = "Control|Shift", action = "ResetFontSize" },
+  { key = "F", mods = "Alt|Shift", action = "SearchForward" },
+  { key = "B", mods = "Alt|Shift", action = "SearchBackward" },
+]
+
+# ── hints: Ctrl+Shift+O opens, Ctrl+Shift+G copies a hash ─────
+[[hints.enabled]]
+regex = '(https?://|file:|git:|ssh:|mailto:)[^\s<>"()\[\]{}]+'
+hyperlinks = true
+post_processing = true
+persist = false
+command = "xdg-open"
+binding = { key = "O", mods = "Control|Shift" }
+mouse.enabled = true
+
+[[hints.enabled]]
+regex = '\b[0-9a-f]{7,40}\b'
+post_processing = true
+persist = false
+action = "Copy"
+binding = { key = "G", mods = "Control|Shift" }
+mouse.enabled = false
+
+# ── bell: quiet, on-brand ──────────────────────────────────────
+[bell]
+animation = "EaseOutExpo"
+duration = 80
+color = "#67E8F9"
+
+# ── aura glass palette ─────────────────────────────────────────
+[colors.primary]
+background = "#0B1020"
+foreground = "#D8E2F2"
+dim_foreground = "#7C8BA8"
+bright_foreground = "#FFFFFF"
+
+[colors.cursor]
+text = "#071018"
+cursor = "#67E8F9"
+
+[colors.vi_mode_cursor]
+text = "#071018"
+cursor = "#C9A7FF"
+
+[colors.selection]
+text = "#EAF6FF"
+background = "#1D3550"
+
+[colors.search.matches]
+foreground = "#0B1020"
+background = "#67E8F9"
+
+[colors.search.focused_match]
+foreground = "#0B1020"
+background = "#C9A7FF"
+
+[colors.hints.start]
+foreground = "#0B1020"
+background = "#67E8F9"
+
+[colors.hints.end]
+foreground = "#D8E2F2"
+background = "#1D3550"
+
+[colors.footer_bar]
+foreground = "#D8E2F2"
+background = "#1D3550"
+
+[colors.normal]
+black   = "#0B1020"
+red     = "#FF7A93"
+green   = "#7DE2B8"
+yellow  = "#F5CE7A"
+blue    = "#7FB6FF"
+magenta = "#C9A7FF"
+cyan    = "#67E8F9"
+white   = "#E6EEFF"
+
+[colors.bright]
+black   = "#2A3550"
+red     = "#FF9DB0"
+green   = "#A6F0CD"
+yellow  = "#FFE1A3"
+blue    = "#A9CDFF"
+magenta = "#DFC7FF"
+cyan    = "#A5F3FC"
+white   = "#FFFFFF"
+
+[colors]
+draw_bold_text_with_bright_colors = true
+transparent_background_colors = false

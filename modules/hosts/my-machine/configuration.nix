@@ -21,6 +21,13 @@
   networking.networkmanager.plugins = with pkgs; [
   networkmanager-openvpn
   ];
+  services.openvpn.servers.visionmaxx = {
+    autoStart = false;
+    config = ''
+      config /etc/openvpn/client/visionmaxx.conf
+    '';
+  };
+
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -180,10 +187,10 @@
   };
 
   networking.nameservers = [
-    "9.9.9.9"
-    "192.168.0.1"
     "192.168.1.10"
     "192.168.1.11"
+    "9.9.9.9"
+    "192.168.0.1"
 
   ];
 
