@@ -222,19 +222,51 @@ environment {
 binds {
     // `niri msg action do-something`.
     // Press Mod+semicolon to resize the current window to a fixed size and center it
-    Mod+Shift+O { spawn-sh "niri msg action set-column-width 1800 && niri msg action set-window-height 800 && niri msg action center-window"; }
-    Mod+Shift+I { spawn-sh "niri msg action set-column-width 400 && niri msg action set-window-height 400"; }
+    Alt+O { spawn-sh "niri msg action set-column-width 1800 && niri msg action set-window-height 800 && niri msg action center-window"; }
+    Alt+I { spawn-sh "niri msg action set-column-width 400 && niri msg action set-window-height 400"; }
+    //
+    // Alt+W hotkey-overlay-title="Size: top half" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 1920 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 0 -y 0"; }
+    // Alt+A hotkey-overlay-title="Size: left half" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 1080 && niri msg action move-floating-window -x 0 -y 0"; }
+    // Alt+S hotkey-overlay-title="Size: bottom half" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 1920 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 0 -y 540"; }
+    // Alt+D hotkey-overlay-title="Size: right half" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 1080 && niri msg action move-floating-window -x 960 -y 0"; }
+    // Alt+J hotkey-overlay-title="Size: top-left quarter" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 0 -y 0"; }
+    // Alt+K hotkey-overlay-title="Size: top-right quarter" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 960 -y 0"; }
+    // Alt+H hotkey-overlay-title="Size: bottom-left quarter" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 0 -y 540"; }
+    // Alt+L hotkey-overlay-title="Size: bottom-right quarter" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 960 -y 540"; }
+    //
 
-    // Edge/corner presets float the focused window first, then place it exactly.
-    // W/A/S/D = up/left/down/right halves; Q/T/Z/C = corners.
-    Mod+Shift+W hotkey-overlay-title="Size: top half" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 1920 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 0 -y 0"; }
-    Mod+Shift+A hotkey-overlay-title="Size: left half" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 1080 && niri msg action move-floating-window -x 0 -y 0"; }
-    Mod+Shift+S hotkey-overlay-title="Size: bottom half" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 1920 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 0 -y 540"; }
-    Mod+Shift+D hotkey-overlay-title="Size: right half" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 1080 && niri msg action move-floating-window -x 960 -y 0"; }
-    Mod+Shift+Q hotkey-overlay-title="Size: top-left quarter" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 0 -y 0"; }
-    Mod+Shift+T hotkey-overlay-title="Size: top-right quarter" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 960 -y 0"; }
-    Mod+Shift+Z hotkey-overlay-title="Size: bottom-left quarter" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 0 -y 540"; }
-    Mod+Shift+C hotkey-overlay-title="Size: bottom-right quarter" { spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 960 && niri msg action set-window-height 540 && niri msg action move-floating-window -x 960 -y 540"; }
+    Alt+W hotkey-overlay-title="Size: top half" {
+        spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 1880 && niri msg action set-window-height 520 && niri msg action move-floating-window -x 20 -y 20";
+    }
+
+    Alt+A hotkey-overlay-title="Size: left half" {
+        spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 920 && niri msg action set-window-height 1040 && niri msg action move-floating-window -x 20 -y 20";
+    }
+
+    Alt+S hotkey-overlay-title="Size: bottom half" {
+        spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 1880 && niri msg action set-window-height 520 && niri msg action move-floating-window -x 20 -y 560";
+    }
+
+    Alt+D hotkey-overlay-title="Size: right half" {
+        spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 920 && niri msg action set-window-height 1040 && niri msg action move-floating-window -x 980 -y 20";
+    }
+
+    Alt+J hotkey-overlay-title="Size: top-left quarter" {
+        spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 920 && niri msg action set-window-height 520 && niri msg action move-floating-window -x 20 -y 20";
+    }
+
+    Alt+K hotkey-overlay-title="Size: top-right quarter" {
+        spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 920 && niri msg action set-window-height 520 && niri msg action move-floating-window -x 980 -y 20";
+    }
+
+    Alt+H hotkey-overlay-title="Size: bottom-left quarter" {
+        spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 920 && niri msg action set-window-height 520 && niri msg action move-floating-window -x 20 -y 560";
+    }
+
+    Alt+L hotkey-overlay-title="Size: bottom-right quarter" {
+        spawn-sh "niri msg action move-window-to-floating && niri msg action set-window-width 920 && niri msg action set-window-height 520 && niri msg action move-floating-window -x 980 -y 560";
+    }
+
 
 
 
@@ -244,10 +276,12 @@ binds {
     // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn-sh "rofi -show drun"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" {spawn "sh" "-c" "swaylock -f -c 1e1e2e"; }
-    Mod+T { spawn "sh" "-c" "alacritty"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "sh" "-c" "alacritty"; }
+    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn-sh "dms ipc call spotlight toggle"; }
+    Mod+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" {spawn-sh "dms ipc call lock lock"; }
+    //    dms ipc call lock lock
+    // "sh" "-c" "swaylock -f -c 1e1e2e";
+    Mod+T { spawn "kitty"; }
     //Mod+T { spawn "wezterm"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
@@ -280,8 +314,8 @@ binds {
  //   Mod+Up    { focus-window-up; }
   //  Mod+Right { focus-column-right; }
     Mod+H     { focus-column-left; }
-    Alt+J     { focus-window-down; }
-    Alt+K     { focus-window-up; }
+    Ctrl+J     { focus-window-down; }
+    Ctrl+K     { focus-window-up; }
     Mod+L     { focus-column-right; }
     Mod+Shift+V { spawn-sh "dms ipc call clipboard toggle"; }
 

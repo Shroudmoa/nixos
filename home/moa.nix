@@ -2,6 +2,9 @@
 #
 # Everything under ./files mirrors the real ~/.config tree that was migrated
 # from the Fedora machine, and is linked into place via `xdg.configFile`.
+# The exception is `files/spicetify`: those sources are baked into a patched
+# Spotify derivation by `programs.spicetify` below, because Spicetify cannot
+# write into the read-only Nix store at runtime.
 # The `niri-dms` and `dms-seed` directories are handled separately (see the
 # activation script) because DMS rewrites those files at runtime.
 { config, pkgs, lib, ... }:
@@ -62,9 +65,14 @@ in
 
   # Link the migrated ~/.config tree.
   # `programs.onlyoffice` generates this file from `settings` below, so skip
-  # the copied one to avoid a conflicting definition.
+  # the copied one to avoid a conflicting definition. Spicetify files are also
+  # skipped: they are baked into the patched Spotify package below.
   xdg.configFile = lib.mapAttrs (_: source: { inherit source; }) (
-    lib.filterAttrs (name: _: name != "onlyoffice/DesktopEditors.conf") (collectFiles ./files)
+    lib.filterAttrs
+      (name: _:
+        name != "onlyoffice/DesktopEditors.conf"
+        && ! (lib.hasPrefix "spicetify/" name))
+      (collectFiles ./files)
   );
 
   # DMS generates ~/.config/niri/dms/*.kdl and rewrites ~/.config/dms/*.json at
@@ -119,6 +127,27 @@ in
       savePath = "/home/moa/Desktop/project/main";
       titlebar = "custom";
     };
+  };
+
+  # Spicetify must be applied during the build: the Nix store is read-only, so
+  # `spicetify apply` cannot patch Spotify at runtime. spicetify-nix bakes the
+  # config, SpoTUI theme, and marketplace custom app into a patched Spotify
+  # derivation and installs that in place of pkgs.spotify/spicetify-cli.
+  programs.spicetify = {
+    enable = true;
+    theme = {
+      name = "SpoTUI";
+      src = ./files/spicetify/Themes/SpoTUI;
+    };
+    colorScheme = "SpoTUI - SkenS";
+    enabledCustomApps = [
+      {
+        name = "marketplace";
+        src = ./files/spicetify/CustomApps/marketplace;
+      }
+    ];
+    experimentalFeatures = true;
+    alwaysEnableDevTools = false;
   };
 
   home.packages = with pkgs; [
@@ -183,7 +212,6 @@ in
     pavucontrol
     wireshark
     conky
-    spicetify-cli
     catnip
     fum
     aichat
@@ -212,8 +240,6 @@ in
      cline
      pi-coding-agent
     codex
-    spicetify-cli
-     spotify
      freerdp
      gh 
      gcc

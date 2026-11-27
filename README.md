@@ -63,12 +63,23 @@ DMS settings GUI can keep writing them; they are seeded once from `home/dms-seed
 (see above). DMS is started by its systemd user service, so `niri/config.kdl`
 does not spawn it.
 
+### Spicetify
+
+`programs.spicetify` in `home/moa.nix` uses the `spicetify-nix` input to apply
+Spicetify **at build time**, because the Nix store is read-only and Spicetify
+cannot patch Spotify's assets at runtime. The SpoTUI theme and marketplace
+custom app under `home/files/spicetify/` are baked into a patched Spotify
+derivation that replaces `pkgs.spotify` in the user profile.
+
+Do not run `spicetify apply` manually. Rebuild with `ni` and restart Spotify;
+the patched package contains the generated `config-xpui.ini`, theme, and app.
+
 ## Usage
 
 ### NixOS (the `myMachine` host)
 
 ```sh
-sudo nixos-rebuild switch --flake ~/.config/nixos#myMachine
+sudo nixos-rebuild switch --flake ~/myNixOS#myMachine
 ```
 
 ### Fedora (standalone home-manager)

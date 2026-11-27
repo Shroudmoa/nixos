@@ -5,6 +5,7 @@ let
   moaModule = {
     imports = [
       (import ../../home/moa.nix)
+      inputs.spicetify-nix.homeManagerModules.spicetify
       inputs.dank-material-shell.homeModules.dank-material-shell
     ];
   };

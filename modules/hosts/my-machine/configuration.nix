@@ -27,6 +27,11 @@
       config /etc/openvpn/client/visionmaxx.conf
     '';
   };
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
 
 
   # Configure network proxy if necessary
@@ -187,10 +192,10 @@
   };
 
   networking.nameservers = [
-    "192.168.1.10"
-    "192.168.1.11"
     "9.9.9.9"
     "192.168.0.1"
+    "192.168.1.10"
+    "192.168.1.11"
 
   ];
 

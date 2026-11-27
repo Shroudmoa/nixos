@@ -8,6 +8,11 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    # Applies Spicetify at build time, so Spotify's assets are patched in the
+    # Nix store instead of requiring writes at runtime.
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+
     # DankMaterialShell (DMS) - not packaged in nixpkgs, provides the dms-shell
     # package plus a home-manager module. Build against our nixpkgs.
     dank-material-shell.url = "github:AvengeMedia/DankMaterialShell";
