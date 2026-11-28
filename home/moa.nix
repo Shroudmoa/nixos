@@ -160,8 +160,8 @@ in
     wezterm
     kitty
     alacritty
-    foot
-    ghostty
+    # foot
+    # ghostty
     # editors
     neovim
     helix
@@ -182,16 +182,16 @@ in
     zoxide
     jq
     # launchers / bars / notifications
-    rofi
-    fuzzel
+    # rofi
+    # fuzzel
     wlogout
-    swaylock
-    swaynotificationcenter
+    # swaylock
+    # swaynotificationcenter
     mako
     eww
     ironbar
-    waybar
-    quickshell
+    # waybar
+    # quickshell
     # media
     mpv
     mpd
@@ -266,7 +266,7 @@ in
     dbeaver-bin
      redis
      lazysql
-     proton-cli
+     # proton-cli
   ];
 
   programs.home-manager.enable = true;

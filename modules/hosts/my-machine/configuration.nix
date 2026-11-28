@@ -175,6 +175,8 @@
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
+  users.defaultUserShell = pkgs.fish;
+  users.users.root.shell = pkgs.fish;
   programs.mtr.enable = true;
   programs.gnupg.agent = {
      enable = true;
